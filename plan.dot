@@ -1,0 +1,214 @@
+Status
+    fields:_
+        name*
+        enum:_
+            NEW
+            ACTIVE
+            NOT_ACTIVE
+            COMPLETED
+            CANCELED
+            DELIVERED
+            PENDING
+            BLOCKED
+            MAINTENANCE
+            PAID
+Language
+    fields:_
+        name*
+Currency
+    fields:_
+        name*
+        shortcut*
+Country
+    fields:_
+        name*
+        phone_code*
+        phone_digits_number*
+        currency_id*
+        language_id*
+City
+    fields:_
+        name*
+        country_id*
+Bank
+    fields:_
+        name*
+        country_id*
+StoreTheme
+    fields:_
+        name*
+        status_id* // default: Status::NOT_ACTIVE
+SubscriptionPlan
+    fields:_
+        name*
+        price*
+SubscriptionPlanFeature
+    fields:_
+        name*
+        subscription_plan_id*
+        status_id* // default: STATUS::NOT_ACTIVE
+Merchant
+    fields:_
+        name*
+        email*
+        phone*
+        password*
+        country_id*
+        store_id*
+        status_id* // default: Status::ACTIVE
+BankAccount
+    fields:_
+        bank_id*
+        merchant_id*
+        holder_name*
+        details*
+        iban*
+Store
+    fields:_
+        name*
+        link* // unique
+        description
+        images:_
+            logo
+            icon
+        city_id
+        theme_id*
+        language_id*
+        owner_id* // merchants
+        status_id* // default Status::ACTIVE
+StoreLanguage
+    fields:_
+        store_id*
+        language_id*
+SocialLink
+    fields:_
+        facebook
+        instagram
+        twitter
+        tiktok
+        whatsapp
+        snapchat
+        x-platform
+        telegram
+        google_play
+        app_store
+        store_id*
+Category
+    fields:_
+        name*
+        store_id*
+Brand
+    fields:_
+        name*
+        category_id*
+Product
+    fields:_
+        title*
+        price*
+        cost*
+        sku*
+        quantity*
+        is_unlimited* // default false
+        weight*
+        is_discounted* // default false
+        price_after_discount
+        shortcut_description*
+        description* // html
+        options // json
+        images:_
+            main_image*
+            sub_images
+        store_id*
+        category_id
+        brand_id
+        status_id* // default Status::ACTIVE
+Customer
+    fields:_
+        name*
+        email*
+        phone*
+        birth_date
+        city_id
+        gender
+        description
+        store_id*
+CustomerLocation
+    fields:_
+        type*
+        phone*
+        city_id*
+        address*
+        is_default*
+        longitude*
+        latitude*
+ShoppingCart
+    fields:_
+        customer_id*
+Wishlist
+    product_id*
+    customer_id*
+ShoppingCartItem:_
+    fields:_
+        product_id*
+        shopping_cart_id*
+        quantity
+        options // json
+ShippingMethod
+    fields:_
+        name*
+        shipping_cost*
+        has_cash_on_delivery* // default false
+        cash_on_delivery_cost
+        excepted_delivery_time*
+        cities // json
+        store_id*
+Coupon
+    fields:_
+        promocode*
+        discount_type*
+            enum:_
+            fixed
+            precentage
+        value*
+        end_date*
+        is_except_discounted_products* // default false
+        less_products_number
+        max_usage_times
+        max_usage_per_customer
+        status_id* // default Status::ACTIVE
+        store_id*
+Order
+    fields:_
+        customer_id*
+        shipping_method_id*
+        coupon_id*
+        note
+        status_id* // default Status::ACTIVE
+OrderItem
+    fields:_
+        product_id*
+        order_id*
+        quantity
+        options // json
+        price*
+Invoice
+    order_id*
+InvoiceSetting
+    fields:_
+        settings*
+        invoice_id*
+        store_id*
+DefinitionPage
+    fields:_
+        title*
+        details* // html
+        status_id* // default Status::ACTIVE
+StoreCountry
+    fields:_
+        store_id*
+        country_id*
+StoreSetting
+    fields:_
+        settings* //json
+        store_id*
+

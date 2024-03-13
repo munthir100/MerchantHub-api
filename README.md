@@ -64,4 +64,4 @@ Follow these simple steps to get started with the SaaS API platform:
 
 ## Contact Me
 
-Have questions or suggestions? Feel free to reach out to me at [munthiromer100@gmail.com](mailto:munthiromer100@gmail.com).
+Have questions or suggestions? Feel free to reach out to us at [munthiromer100@gmail.com](mailto:munthiromer100@gmail.com).

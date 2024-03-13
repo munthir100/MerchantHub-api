@@ -3,18 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Bank;
-use App\Models\BankAccount;
 use App\Models\Brand;
-use App\Models\Category;
-use App\Models\City;
 use App\Models\Store;
-use App\Models\Status;
-use App\Models\Language;
-use App\Models\Merchant;
 use App\Models\Product;
-use App\Models\StoreTheme;
+use App\Models\Category;
+use App\Models\Customer;
+use App\Models\Merchant;
+use App\Models\BankAccount;
+use App\Models\City;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CustomerLocation;
 
 class MerchantSeeder extends Seeder
 {
@@ -49,6 +47,21 @@ class MerchantSeeder extends Seeder
             $products = Product::factory(1)->create([
                 'store_id' => $store->id
             ]);
+            $customers = Customer::factory(10)->create([
+                'city_id' => City::whereHas('country', function ($query) use ($store) {
+                    $query->where('id', $store->city->country_id);
+                })->inRandomOrder()->first()->id,
+                'store_id' => $store->id,
+            ]);
+            $customers->each(function ($customer) {
+                $locations = CustomerLocation::factory()
+                    ->count(random_int(1, 3))
+                    ->make([
+                        'city_id' => $customer->city_id,
+                    ]);
+                $locations->random()->is_default = true;
+                $customer->locations()->saveMany($locations);
+            });
             $bankAccounts = BankAccount::factory(10)->create([
                 'bank_id' => Bank::inRandomOrder()->first()->id,
                 'merchant_id' => $merchant->id,

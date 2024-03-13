@@ -8,13 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory,HasRelatedToMerchantStore;
+    use HasFactory, HasRelatedToMerchantStore;
 
-    protected $fillable = ['customer_id', 'shipping_method_id', 'coupon_id', 'note', 'status_id'];
+    protected $fillable = ['customer_id', 'shipping_method_id', 'coupon_id', 'note', 'status_id', 'store_id'];
 
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
     }
 
     public function shippingMethod()

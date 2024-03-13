@@ -21,7 +21,6 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $product = Product::create($request->validated());
-
         return $this->responseCreated('Product created successfully', new ProductResource($product));
     }
 

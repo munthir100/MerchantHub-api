@@ -72,11 +72,6 @@ class Store extends Model
         return $this->hasMany(Customer::class);
     }
 
-    public function customerLocations()
-    {
-        return $this->hasMany(CustomerLocation::class);
-    }
-
     public function shoppingCarts()
     {
         return $this->hasMany(ShoppingCart::class);

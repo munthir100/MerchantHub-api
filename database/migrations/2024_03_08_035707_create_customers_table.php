@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->date('birth_date')->nullable();
             $table->foreignId('city_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->string('gender')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->text('description')->nullable();
             $table->foreignId('store_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

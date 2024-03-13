@@ -21,6 +21,7 @@ class Status extends Model
     const BLOCKED = 8;
     const MAINTENANCE = 9;
     const PAID = 10;
+    const IN_PROGRESS = 11;
     public function storeThemes()
     {
         return $this->hasMany(StoreTheme::class);

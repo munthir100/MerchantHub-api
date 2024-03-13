@@ -16,7 +16,8 @@ class CustomerLocation extends Model
         'address',
         'is_default',
         'longitude',
-        'latitude'
+        'latitude',
+        'customer_id'
     ];
 
     public function city()

@@ -15,12 +15,12 @@ class UpdateCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|string',
+            'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email',
             'phone' => 'sometimes|string',
             'birth_date' => 'nullable|date',
             'city_id' => 'nullable|integer',
-            'gender' => 'nullable|string',
+            'gender' => 'nullable|string|in:male,female',
             'description' => 'nullable|string',
         ];
     }

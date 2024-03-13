@@ -4,6 +4,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Status;
+use App\Rules\ProductOptionsRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -20,7 +21,7 @@ class CreateProductRequest extends FormRequest
             'title' => 'required|string',
             'price' => 'required|numeric|min:0',
             'cost' => 'required|numeric',
-            'sku' => 'required|string|unique_in_merchant_store:products,sku',
+            'sku' => 'string|unique_in_merchant_store:products,sku',
             'quantity' => 'required|integer|min:0',
             'is_unlimited' => 'boolean',
             'weight' => 'required|numeric|min:0',
@@ -28,7 +29,7 @@ class CreateProductRequest extends FormRequest
             'price_after_discount' => 'required_if:is_discounted,true|numeric|numeric|min:0',
             'shortcut_description' => 'required|string|max:255',
             'description' => 'required|string',
-            'options' => 'array',
+            'options' => ['array', new ProductOptionsRule],
             'images.main_image' => 'string',
             'images.sub_images' => 'array',
             'category_id' => 'integer|exists_in_merchant_store:categories,id',

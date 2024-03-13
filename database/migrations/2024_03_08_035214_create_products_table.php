@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->decimal('price');
             $table->decimal('cost')->nullable();
-            $table->string('sku')->nullable();
+            $table->string('sku');
             $table->integer('quantity')->default(0);
             $table->boolean('is_unlimited')->default(false);
             $table->decimal('weight')->default(0);

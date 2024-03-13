@@ -15,12 +15,12 @@ class CreateCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|string',
             'birth_date' => 'date',
             'city_id' => 'integer',
-            'gender' => 'string',
+            'gender' => 'string|in:male,female',
             'description' => 'string',
         ];
     }

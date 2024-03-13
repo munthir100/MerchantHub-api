@@ -4,50 +4,32 @@ namespace App\Observers;
 
 use App\Models\OrderItem;
 use App\Models\Product;
-use Illuminate\Auth\Access\AuthorizationException;
-use JsonException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class ProductObserver
 {
-    /**
-     * Handle the Product "created" event.
-     */
-    public function created(Product $product): void
+    public function creating(Product $product)
     {
-        //
+        if (empty($product->sku)) {
+            $product->sku = $this->generateUniqueAutoSku();
+        }
+        if ($product->options) {
+            $product->options = json_encode($product->options);
+        }
     }
 
-    /**
-     * Handle the Product "updated" event.
-     */
-    public function updated(Product $product): void
+    private function generateUniqueAutoSku()
     {
-        //
-    }
+        $skuBase = 'SKU' . (Product::forAuthMerchantStore()->count() + 1);
+        $generatedSku = $skuBase;
+        $counter = 1;
 
-    /**
-     * Handle the Product "deleted" event.
-     */
-    public function deleted(Product $product): void
-    {
-        //
-    }
+        while (Product::where('sku', $generatedSku)->exists()) {
+            $generatedSku = $skuBase . '-' . $counter;
+            $counter++;
+        }
 
-    /**
-     * Handle the Product "restored" event.
-     */
-    public function restored(Product $product): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Product "force deleted" event.
-     */
-    public function forceDeleted(Product $product): void
-    {
-        //
+        return $generatedSku;
     }
 
     public function deleting(Product $product)

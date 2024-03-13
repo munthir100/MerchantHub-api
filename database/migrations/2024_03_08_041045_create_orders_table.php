@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Status;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('coupon_id')->nullable()->constrained()->cascadeOnDelete();
             $table->text('note')->nullable();
             $table->foreignId('status_id')->constrained()->cascadeOnDelete()->default(Status::NEW);
+            $table->foreignId('store_id')->constrained();
             $table->timestamps();
         });
     }

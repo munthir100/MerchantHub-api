@@ -7,7 +7,9 @@ trait HasRelatedToMerchantStore
     protected static function bootHasRelatedToMerchantStore()
     {
         static::creating(function ($model) {
-            $model->store_id = request()->user('merchant')->store_id;
+            if (!app()->runningInConsole()) {
+                $model->store_id = request()->user('merchant')->store_id;
+            }
         });
     }
 

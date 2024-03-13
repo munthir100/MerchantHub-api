@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Status;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateOrderRequest extends FormRequest
@@ -22,11 +24,21 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id' => 'required|integer',
-            'shipping_method_id' => 'required|integer',
-            'coupon_id' => 'required|integer',
+            'customer_id' => 'required|integer|exists_in_merchant_store,customers,id',
+            'shipping_method_id' => 'required|integer|exists_in_merchant_store,shiping_methods,id',
+            'coupon_id' => 'integer|exists_in_merchant_store,coupons,id',
             'note' => 'required|string',
-            'status_id' => 'required|integer',
+            'status_id' => [
+                'required',
+                'integer',
+                Rule::in(
+                    Status::CANCELED,
+                    Status::DELIVERED,
+                    Status::PENDING,
+                    Status::PAID,
+                    Status::IN_PROGRESS,
+                )
+            ],
         ];
     }
 }

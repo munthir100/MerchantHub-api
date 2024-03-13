@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class CustomerController extends Controller
         return $this->responseSuccess(null, new CustomerResource($customer));
     }
 
-    public function update(CreateCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         $customer->update($request->validated());
         return $this->responseSuccess(null, new CustomerResource($customer));

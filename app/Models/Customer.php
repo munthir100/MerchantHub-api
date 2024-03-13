@@ -31,7 +31,7 @@ class Customer extends Model
         return $this->belongsTo(Store::class);
     }
 
-    public function customerLocations()
+    public function locations()
     {
         return $this->hasMany(CustomerLocation::class);
     }

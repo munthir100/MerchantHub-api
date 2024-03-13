@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'price_after_discount' => $this->price_after_discount,
             'shortcut_description' => $this->shortcut_description,
             'description' => $this->description,
-            'options' => $this->options,
+            'options' => json_decode($this->options) ,
             'status_id' => $this->status_id,
             'store' => new StoreResource($this->whenLoaded('store')),
             'category' => new CategoryResource($this->whenLoaded('category')),

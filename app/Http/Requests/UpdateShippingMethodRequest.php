@@ -20,7 +20,7 @@ class UpdateShippingMethodRequest extends FormRequest
             'has_cash_on_delivery' => 'sometimes|boolean',
             'cash_on_delivery_cost' => 'sometimes|numeric',
             'excepted_delivery_time' => 'sometimes|string',
-            'cities' => 'sometimes|array',
+            'cities' => 'nullable|array',
         ];
     }
 }

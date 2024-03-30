@@ -27,7 +27,7 @@ class CreateShippingMethodRequest extends FormRequest
             'has_cash_on_delivery' => 'required|boolean',
             'cash_on_delivery_cost' => 'required|numeric',
             'excepted_delivery_time' => 'required|string',
-            'cities' => 'required|array',
+            'cities' => 'required|array|exists:cities,id', // comming soon
         ];
     }
 }

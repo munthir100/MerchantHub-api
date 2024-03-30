@@ -12,6 +12,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StoreCountryController;
 use App\Http\Controllers\DefinitionPageController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ShippingMethodController;
 
 /*
@@ -40,9 +41,17 @@ Route::middleware('auth:merchant')->group(function () {
     Route::apiResource('coupons', CouponController::class);
     Route::apiResource('orders', OrderController::class);
     Route::prefix('settings')->group(function () {
+        Route::prefix('profile')->group(function(){
+            Route::get('/', [MerchantController::class, 'profile']);
+        });
         Route::apiResource('shippingMethods', ShippingMethodController::class);
         Route::apiResource('definitionPages', DefinitionPageController::class);
-        Route::apiResource('store', StoreController::class)->only(['update', 'show']);
+        Route::apiResource('store', StoreController::class)->only(['index']);
+        Route::prefix('store')->group(function(){
+            Route::get('/', [StoreController::class, 'index']);
+            Route::put('update', [StoreController::class, 'update']);
+            Route::get('socialLinks', [StoreController::class, 'socialLinks']);
+        });
         Route::apiResource('storeCountries', StoreCountryController::class)->except(['update']);
         Route::put('storeCountries/{storeCountry}/default', [StoreCountryController::class, 'setAsDefault']);
         Route::put('socialLinks', [StoreController::class, 'updateSocialLinks']);

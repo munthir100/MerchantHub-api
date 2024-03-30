@@ -160,7 +160,7 @@ ShippingMethod
         has_cash_on_delivery* // default false
         cash_on_delivery_cost
         excepted_delivery_time*
-        cities // json
+        cities 
         store_id*
 Coupon
     fields:_

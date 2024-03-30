@@ -22,6 +22,12 @@ class ShippingMethod extends Model
 
     public function stores()
     {
-        return $this->hasMany(Store::class);
+        return $this->belongsTo(Store::class);
+    }
+    
+    public function cities()
+    {
+        $cityIds = json_decode($this->cities, true); // Assuming cities is a JSON array of city IDs
+        return City::whereIn('id', $cityIds)->get();
     }
 }

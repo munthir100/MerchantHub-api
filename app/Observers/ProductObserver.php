@@ -8,14 +8,16 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class ProductObserver
 {
-    public function creating(Product $product)
+    public function creating(Product $product): void
     {
         if (empty($product->sku)) {
             $product->sku = $this->generateUniqueAutoSku();
         }
-        if ($product->options) {
-            $product->options = json_encode($product->options);
-        }
+    }
+
+    public function saving(Product $product): void
+    {
+        $this->setProductOptions($product);
     }
 
     private function generateUniqueAutoSku()
@@ -37,6 +39,13 @@ class ProductObserver
         $hasOrders = OrderItem::where('product_id', $product->id)->exists();
         if ($hasOrders) {
             throw new ConflictHttpException('Cannot delete the product because it has associated orders.');
+        }
+    }
+
+    function setProductOptions(Product $product)
+    {
+        if ($product->options) {
+            $product->options = json_encode($product->options);
         }
     }
 }

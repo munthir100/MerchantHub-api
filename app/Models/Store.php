@@ -49,7 +49,7 @@ class Store extends Model
 
     public function socialLinks()
     {
-        return $this->hasMany(SocialLink::class);
+        return $this->hasOne(SocialLink::class);
     }
 
     public function categories()

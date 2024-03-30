@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateDefinitionPageRequest;
+use App\Http\Requests\UpdateDefinitionPageRequest;
 use App\Http\Resources\DefinitionPageResource;
 use App\Models\DefinitionPage;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class DefinitionPageController extends Controller
         return $this->responseSuccess(null, new DefinitionPageResource($definitionPage));
     }
 
-    public function update(CreateDefinitionPageRequest $request, DefinitionPage $definitionPage)
+    public function update(UpdateDefinitionPageRequest $request, DefinitionPage $definitionPage)
     {
         $definitionPage->update($request->validated());
         return $this->responseSuccess(null, new DefinitionPageResource($definitionPage));

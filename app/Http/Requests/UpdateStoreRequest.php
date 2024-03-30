@@ -28,12 +28,12 @@ class UpdateStoreRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string',
-            'link' => 'sometimes|string|unique:stores,link,' . $this->route('store'),
+            'link' => 'sometimes|string|unique:stores,link,' . request()->user('merchant')->store_id,
             'description' => 'nullable|string',
             'images' => 'array',
             'images.logo' => 'nullable|string',
             'images.icon' => 'nullable|string',
-            'city_id' => 'sometimes|exists:cities,id',
+            'city_id' => 'sometimes|exists:cities,id', // soon
             'language_id' => 'sometimes|exists:languages,id',
         ];
     }

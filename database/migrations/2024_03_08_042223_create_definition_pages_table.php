@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('details');
             $table->foreignId('status_id')->constrained('statuses');
+            $table->foreignId('store_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

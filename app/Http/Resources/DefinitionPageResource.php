@@ -12,6 +12,7 @@ class DefinitionPageResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'details' => $this->details,
+            'status_id' => $this->status_id,
             'status' => new StatusResource($this->whenLoaded('status')),
         ];
     }

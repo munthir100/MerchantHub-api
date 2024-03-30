@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\StoreCountry;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class MerchantValidationServiceProvider extends ServiceProvider
 {
@@ -68,6 +69,11 @@ class MerchantValidationServiceProvider extends ServiceProvider
         Validator::replacer('unique_in_merchant_store', function ($message, $attribute, $rule, $parameters) {
             $customMessage = __('The :attribute has already been taken for the merchant store.');
             return str_replace(':attribute', $attribute, $customMessage);
+        });
+
+        Validator::extend('in_merchant_store_cities', function ($attribute, $value, $parameters, $validator) {
+            $merchantStoreId = auth()->user('merchant')->store_id;
+            
         });
     }
 }

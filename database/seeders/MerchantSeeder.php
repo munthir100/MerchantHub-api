@@ -13,6 +13,7 @@ use App\Models\BankAccount;
 use App\Models\City;
 use Illuminate\Database\Seeder;
 use App\Models\CustomerLocation;
+use App\Models\StoreCountry;
 
 class MerchantSeeder extends Seeder
 {
@@ -46,6 +47,11 @@ class MerchantSeeder extends Seeder
             }
             $products = Product::factory(1)->create([
                 'store_id' => $store->id
+            ]);
+            StoreCountry::create([
+                'store_id' => $store->id,
+                'country_id' => $store->city->country_id,
+                'is_default' => true,
             ]);
             $customers = Customer::factory(10)->create([
                 'city_id' => City::whereHas('country', function ($query) use ($store) {

@@ -15,7 +15,7 @@ class ShippingMethodResource extends JsonResource
             'has_cash_on_delivery' => $this->has_cash_on_delivery,
             'cash_on_delivery_cost' => $this->cash_on_delivery_cost,
             'excepted_delivery_time' => $this->excepted_delivery_time,
-            'cities' => $this->cities,
+            'cities_ids' => json_decode($this->cities),
             'store' => new StoreResource($this->whenLoaded('store')),
         ];
     }

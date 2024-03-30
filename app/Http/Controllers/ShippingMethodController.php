@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateShippingMethodRequest;
+use App\Http\Requests\UpdateShippingMethodRequest;
 use App\Http\Resources\ShippingMethodResource;
 use App\Models\ShippingMethod;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class ShippingMethodController extends Controller
         return $this->responseSuccess(null, new ShippingMethodResource($shippingMethod));
     }
 
-    public function update(CreateShippingMethodRequest $request, ShippingMethod $shippingMethod)
+    public function update(UpdateShippingMethodRequest $request, ShippingMethod $shippingMethod)
     {
         $shippingMethod->update($request->validated());
         return $this->responseSuccess(null, new ShippingMethodResource($shippingMethod));

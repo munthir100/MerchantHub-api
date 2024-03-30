@@ -23,13 +23,12 @@ class CreateProductRequest extends FormRequest
             'cost' => 'required|numeric',
             'sku' => 'string|unique_in_merchant_store:products,sku',
             'quantity' => 'required|integer|min:0',
-            'is_unlimited' => 'boolean',
+            'is_unlimited' => 'required|boolean',
             'weight' => 'required|numeric|min:0',
             'is_discounted' => 'boolean',
             'price_after_discount' => 'required_if:is_discounted,true|numeric|numeric|min:0',
             'shortcut_description' => 'required|string|max:255',
             'description' => 'required|string',
-            'options' => ['array', new ProductOptionsRule],
             'images.main_image' => 'string',
             'images.sub_images' => 'array',
             'category_id' => 'integer|exists_in_merchant_store:categories,id',
@@ -39,6 +38,13 @@ class CreateProductRequest extends FormRequest
                 'integer',
                 Rule::in(Status::ACTIVE, Status::NOT_ACTIVE)
             ],
+            'options'                  => 'sometimes|array',
+            'options.*.name'           => 'required_with:options|string',
+            'options.*.values'         => 'required_with:options|array',
+            'options.*.values.*.name'  => 'required_with:options.*.values|string',
+            'options.*.values.*.additional_price'  => 'required_with:options.*.values|string',
+            'options.*.values.*.quantity'  => 'required_with:options.*.values|string',
         ];
+        // 'options' => [new ProductOptionsRule], // after validation
     }
 }

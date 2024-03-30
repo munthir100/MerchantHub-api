@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Status;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateDefinitionPageRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class CreateDefinitionPageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,7 @@ class CreateDefinitionPageRequest extends FormRequest
         return [
             'title' => 'required|string',
             'details' => 'required|string',
-            'status_id' => 'required|integer',
+            'status_id' => ['required', 'integer', Rule::in(Status::ACTIVE, Status::NOT_ACTIVE)],
         ];
     }
 }
